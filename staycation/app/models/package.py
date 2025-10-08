@@ -1,7 +1,7 @@
 from app import db
 
 class Package(db.Document):
-    meta = {'collection': 'staycation'}
+    meta = {'collection': 'package'}
     hotel_name = db.StringField(max_length=30)
     duration = db.IntField()
     unit_cost = db.FloatField()
