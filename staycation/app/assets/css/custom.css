@@ -15,8 +15,8 @@ body {
 /* navbar */
 .sidebar {
     height: 100vh;
-    background: linear-gradient(rgba(70, 64, 156, 0.548), rgba(0, 0, 0, .9)), url(../img/img1.jpeg);
-    background-position: center;
+    background: url(../img/Study-Space_High-table-2-cropped-300x200.png);
+    /* background-position: center; */
     background-repeat: no-repeat;
     background-size: cover;
     box-shadow: 5px 7px 25px #999;
@@ -94,6 +94,7 @@ body {
         position: static;
         height: auto;
     }
+    
 }
 
 table {
@@ -142,5 +143,6 @@ tr {
     box-shadow: 2px 3px 15px #999;
     transform: translateY(-1px);
 }
+
 
 /* end of cards */
