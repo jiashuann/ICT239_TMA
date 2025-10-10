@@ -1,14 +1,13 @@
-from app import db
+from mongoengine import Document, StringField 
 from flask_login import UserMixin
 
 
-class User(UserMixin, db.Document):
-    
+class User(UserMixin, Document):
     meta = {'collection': 'appUsers'}
-    email = db.StringField(max_length=30)
-    password = db.StringField()
-    name = db.StringField()
-    avatar = db.StringField()
+    email = StringField(max_length=30)
+    password = StringField()
+    name = StringField()
+    avatar = StringField()
     
     @staticmethod
     def getUser(email):

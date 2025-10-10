@@ -1,12 +1,12 @@
-from app import db
+from mongoengine import Document, StringField, IntField, FloatField
 
-class Package(db.Document):
+class Package(Document):
     meta = {'collection': 'package'}
-    hotel_name = db.StringField(max_length=30)
-    duration = db.IntField()
-    unit_cost = db.FloatField()
-    image_url = db.StringField(max_length=30)
-    description = db.StringField(max_length=500)
+    hotel_name = StringField(max_length=30)
+    duration = IntField()
+    unit_cost = FloatField()
+    image_url = StringField(max_length=30)
+    description = StringField(max_length=500)
     
     def packageCost(self):
         return self.unit_cost * self.duration

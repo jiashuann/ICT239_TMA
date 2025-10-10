@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, jsonify
 from flask_login import login_required, current_user
 from datetime import datetime, timedelta, date
 from app import db
-from models.book import Booking
+from app.models.book import Booking
 
 dashboard = Blueprint('dashboard', __name__)
 

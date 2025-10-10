@@ -69,11 +69,11 @@
             <strong>Pages:</strong> {{ book.pages }}
           </p>
           
-          <p class="card-text mb-3">{{ book.short_description }}</p>
+          <p class="card-text mb-3">{{ book.short_description if book.short_description is defined else book.description[0] if book.description else "No description available." }}</p>
           
           <!-- More Details Button -->
           <div class="d-flex justify-content-end">
-            <a href="{{ url_for('packageController.viewBookDetail', book_title=book['title']) }}" 
+            <a href="{{ url_for('packageController.viewBookDetail', book_title=book.title) }}"
                class="btn btn-success">
               More details
             </a>

@@ -9,15 +9,15 @@ from werkzeug.security import generate_password_hash
 # Register Blueprint so we can factor routes
 # from bmi import bmi, get_dict_from_csv, insert_reading_data_into_database
 
-from controllers.dashboard import dashboard
-from controllers.auth import auth
-from controllers.bookController import booking
-from controllers.packageController import package
+from app.controllers.dashboard import dashboard
+from app.controllers.auth import auth
+from app.controllers.bookController import booking
+from app.controllers.packageController import package
 
-from models.package import Package
-from models.book import Booking
-from models.users import User
-from models.forms import BookForm
+from app.models.package import Package
+from app.models.book import Booking
+from app.models.users import User
+from app.models.forms import BookForm
 
 #for uploading file
 import csv

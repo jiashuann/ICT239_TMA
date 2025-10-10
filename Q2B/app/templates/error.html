@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block mainblock %}
+<div class="container mt-5">
+  <div class="alert alert-danger">
+    <h2><i class="fas fa-exclamation-triangle"></i> Error</h2>
+    <p>{{ message }}</p>
+    <a href="{{ url_for('packageController.book_titles') }}" class="btn btn-success mt-3">
+      <i class="fas fa-arrow-left"></i> Back to Book Titles
+    </a>
+  </div>
+</div>
+{% endblock %}

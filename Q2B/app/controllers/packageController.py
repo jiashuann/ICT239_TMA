@@ -1,12 +1,16 @@
 from flask_login import login_user, login_required, logout_user, current_user
 from flask import Blueprint, request, redirect, render_template, url_for
 
-from models.forms import BookForm
-from models.books import all_books
-from models.users import User
-from models.package import Package
+from app.models.forms import BookForm
+from app.models.books import all_books
+from app.models.users import User
+from app.models.package import Package
+
+#mongoDB
+from app.models.book_doc import Book
 
 package = Blueprint('packageController', __name__)
+
 
 @package.route('/')
 @package.route("/BookTitles")
@@ -15,28 +19,20 @@ package = Blueprint('packageController', __name__)
 #     return render_template('books.html', panel="BOOK TITLES", all_books=all_books)
 
 def book_titles():
+    # ✅ Seed MongoDB if empty (first time only)
+    Book.seed_from_all_books_if_empty()
+    
     # Get category from query parameter (default = All)
     selected_category = request.args.get('category', 'All')
 
-    # ✅ Filter by category if not 'All'
+    # ✅ Query MongoDB instead of all_books
     if selected_category == 'All':
-        filtered_books = all_books
+        books_query = Book.objects()
     else:
-        filtered_books = [b for b in all_books if b['category'] == selected_category]
-
-    # ✅ Sort filtered books alphabetically by title
-    sorted_books = sorted(filtered_books, key=lambda b: b['title'].lower())
-
-    # ✅ Keep only the first and last paragraphs of description
-    for book in sorted_books:
-        desc_list = book.get('description', [])
-        if len(desc_list) > 1:
-            short_desc = f"{desc_list[0]}\n\n{desc_list[-1]}"
-        elif desc_list:
-            short_desc = desc_list[0]
-        else:
-            short_desc = "No description available."
-        book['short_description'] = short_desc
+        books_query = Book.objects(category=selected_category)
+    
+    # ✅ Sort alphabetically by title
+    sorted_books = books_query.order_by('title')
 
     return render_template(
         'books.html',
@@ -44,13 +40,12 @@ def book_titles():
         all_books=sorted_books,
         selected_category=selected_category
     )
-
     
 
 @package.route("/viewBookDetail/<book_title>")
 def viewBookDetail(book_title):
-    # Find the book by title
-    the_book = next((b for b in all_books if b['title'] == book_title), None)
+    # ✅ Query MongoDB for the book
+    the_book = Book.objects(title=book_title).first()
     
     if not the_book:
         return render_template('error.html', message="Book not found."), 404

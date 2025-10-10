@@ -1,15 +1,15 @@
-from models.users import User
-from models.package import Package
-from app import db
+from mongoengine import Document, DateTimeField, ReferenceField, FloatField
 from mongoengine.queryset.visitor import Q
+from app.models.users import User
+from app.models.package import Package
 
-class Booking(db.Document):
+class Booking(Document):
     
     meta = {'collection': 'booking'}
-    check_in_date = db.DateTimeField(required=True)
-    customer = db.ReferenceField(User)
-    package = db.ReferenceField(Package)
-    total_cost = db.FloatField()
+    check_in_date = DateTimeField(required=True)
+    customer = ReferenceField(User)
+    package = ReferenceField(Package)
+    total_cost = FloatField()
     
     def calculate_total_cost(self):
         self.total_cost = self.package.duration * self.package.unit_cost

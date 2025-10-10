@@ -3,8 +3,8 @@ from flask_login import login_user, login_required, logout_user, current_user
 from flask import Blueprint, request, redirect, render_template, url_for, flash
 from app import login_manager
 
-from models.forms import RegForm
-from models.users import User
+from app.models.forms import RegForm
+from app.models.users import User
 import os
 
 auth = Blueprint('auth', __name__)

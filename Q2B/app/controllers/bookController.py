@@ -1,11 +1,11 @@
 from flask_login import login_user, login_required, logout_user, current_user
 from flask import Blueprint, request, redirect, render_template, url_for
 
-from models.forms import BookForm
+from app.models.forms import BookForm
 
-from models.users import User
-from models.package import Package
-from models.book import Booking
+from app.models.users import User
+from app.models.package import Package
+from app.models.book import Booking
 
 from datetime import date, timedelta
 
