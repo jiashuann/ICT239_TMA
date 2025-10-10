@@ -1,0 +1,561 @@
+/* ===================================
+   MAIN SECTION
+   =================================== */
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #eee;
+    margin: 0;
+    padding: 0;
+}
+
+.img-fluid {
+    max-width: 70%;
+    height: auto;
+}
+
+/* ===================================
+   SIDEBAR STRUCTURE
+   =================================== */
+
+/* Sidebar wrapper */
+.sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    transition: transform 0.3s ease;
+}
+
+/* Sidebar main styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: url(../img/Study-Space_High-table-2-cropped-300x200.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #6b8e7e;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.3);
+    overflow-y: auto;
+}
+
+/* Sidebar header with background overlay */
+.sidebar-header {
+    background-color: rgba(107, 142, 126, 0.85);
+    padding: 1rem 0;
+}
+
+.sidebar .navbar-brand {
+    color: white !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-decoration: none;
+    margin: 0;
+}
+
+/* Thin divider line after SG Library */
+.sidebar-divider {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin: 0;
+    opacity: 1;
+}
+
+/* Navigation menu */
+.sidebar .navbar-nav {
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar .nav-item {
+    margin: 0;
+}
+
+.sidebar .nav-link {
+    color: white !important;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-link {
+    transition: all .4s;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ===================================
+   HAMBURGER BUTTON
+   =================================== */
+
+.navbar-toggler {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    border: 2px solid #fff;
+    padding: 8px 12px;
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.navbar-toggler-icon {
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(107, 142, 126, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.navbar-toggler:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(107, 142, 126, 0.5);
+}
+
+/* ===================================
+   MAIN CONTENT AREA
+   =================================== */
+
+.main-content {
+    margin-left: 250px;
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+.top-navbar {
+    background-color: #b5d4c3 !important;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.top-navbar h4 {
+    color: #2d3436;
+}
+
+.content-wrapper {
+    padding: 1.5rem;
+}
+
+/* ===================================
+   BUTTONS & CARDS
+   =================================== */
+
+.btn-success {
+    background-color: #66bb6a !important;
+    border-color: #66bb6a !important;
+}
+
+.btn-success:hover {
+    background-color: #57a95b !important;
+    border-color: #57a95b !important;
+}
+
+.card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.card-common {
+    box-shadow: 1px 2px 5px #999;
+    transition: all .4s;
+}
+
+.card-common:hover {
+    box-shadow: 2px 3px 15px #999;
+    transform: translateY(-1px);
+}
+
+/* ===================================
+   FORMS & FILTERS
+   =================================== */
+
+.filter-bar {
+    background-color: #e8f5e9;
+    border-radius: 5px;
+}
+
+#categoryFilter {
+    border: 1px solid #66bb6a;
+}
+
+#categoryFilter:focus {
+    border-color: #66bb6a;
+    box-shadow: 0 0 0 0.2rem rgba(102, 187, 106, 0.25);
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #999;
+    transition: all .4s;
+}
+
+.search-input:focus {
+    background: transparent;
+    box-shadow: none;
+    border-bottom: 2px solid #dc3545;
+}
+
+/* ===================================
+   BOOK COVERS - BASE STYLES
+   =================================== */
+
+.book-cover-list {
+    max-width: 180px;
+    max-height: 270px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.book-cover-detail {
+    max-width: 250px;
+    max-height: 375px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ===================================
+   TYPOGRAPHY
+   =================================== */
+
+.book-detail-title {
+    font-size: 1.5rem;
+}
+
+.book-detail-author {
+    font-size: 1.1rem;
+}
+
+.book-detail-info {
+    font-size: 0.95rem;
+}
+
+.book-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ===================================
+   TABLES
+   =================================== */
+
+table {
+    width: 95%;
+    border-collapse: collapse;
+    overflow-x: auto;
+}
+
+td, th {
+    padding: 5px;
+    text-align: center;
+}
+
+th {
+    background-color: #0430aa;
+    color: white;
+}
+
+tr {
+    border-bottom: 2px solid rgba(221, 221, 221, 0.465);
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.icon-parent {
+    position: relative;
+}
+
+.icon-bullet::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 15px;
+    height: 12px;
+    width: 12px;
+    background-color: #f44336;
+    border-radius: 50%;
+}
+
+.bottom-border {
+    border-bottom: 1px groove rgba(255, 255, 255, 0.3);
+}
+
+/* ===================================
+   RESPONSIVE: DESKTOP (769px and up)
+   =================================== */
+
+@media (min-width: 769px) {
+    /* Hide hamburger on desktop */
+    .navbar-toggler {
+        display: none !important;
+    }
+    
+    /* Sidebar on left side */
+    .sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100vh;
+    }
+    
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+    }
+    
+    /* Main content with left margin for sidebar */
+    .main-content {
+        margin-left: 250px;
+        margin-top: 0;
+    }
+    
+    /* Desktop book cover sizes */
+    .book-cover-list {
+        max-width: 180px;
+        max-height: 270px;
+    }
+    
+    .book-cover-detail {
+        max-width: 250px;
+        max-height: 375px;
+    }
+    
+    /* Card padding */
+    .card-body {
+        padding: 1.5rem;
+    }
+}
+
+/* ===================================
+   RESPONSIVE: TABLETS (577px to 768px)
+   =================================== */
+
+@media (min-width: 577px) and (max-width: 768px) {
+    /* Tablet book cover sizes */
+    .book-cover-list {
+        max-width: 130px;
+        max-height: 195px;
+    }
+    
+    .book-cover-detail {
+        max-width: 200px;
+        max-height: 300px;
+    }
+    
+    /* Text sizing */
+    .book-detail-title {
+        font-size: 1.3rem;
+    }
+    
+    /* Card padding */
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* ===================================
+   RESPONSIVE: MOBILE & TABLET (up to 768px)
+   =================================== */
+
+@media (max-width: 768px) {
+    /* Show hamburger button inside sidebar */
+    .navbar-toggler {
+        display: block !important;
+    }
+    
+    /* Sidebar ALWAYS visible at top, full width */
+    .sidebar-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+        z-index: 1050;
+        /* NO transform - sidebar doesn't slide away */
+    }
+    
+    /* Sidebar styling for mobile */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    
+    /* Sidebar header compact */
+    .sidebar-header {
+        padding: 0.5rem 0;
+    }
+    
+    .sidebar .navbar-brand {
+        font-size: 1.2rem;
+        padding: 0.25rem;
+    }
+    
+    /* Navigation menu - smooth dropdown animation */
+    .navbar-nav {
+        transition: all 0.3s ease;
+    }
+    
+    /* Main content below sidebar - FIXED margin */
+    .main-content {
+        margin-left: 0 !important;
+        margin-top: 150px; /* Adjust based on sidebar height */
+        width: 100%;
+    }
+    
+    /* When menu is visible, add extra margin */
+    .main-content.menu-open {
+        margin-top: 220px;
+    }
+    
+    /* Top navbar */
+    .top-navbar {
+        padding: 0.5rem 1rem;
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .top-navbar h4 {
+        font-size: 1rem;
+    }
+    
+    /* Content wrapper */
+    .content-wrapper {
+        padding: 0.75rem;
+    }
+}
+    
+    /* Filter bar on mobile - stack vertically */
+    .filter-bar .row {
+        flex-direction: column;
+    }
+
+
+/* ===================================
+   RESPONSIVE: MOBILE PHONES (up to 576px)
+   =================================== */
+
+@media (max-width: 576px) {
+  .book-cover-list {
+      max-width: 140px !important;
+      max-height: 200px !important;
+  }
+}
+@media (max-width: 375px) {
+  .book-cover-list {
+      max-width: 120px !important;
+      max-height: 180px !important;
+  }
+}
+    
+    /* Smaller text */
+    .card-title {
+        font-size: 1rem;
+    }
+    
+    .card-text {
+        font-size: 0.9rem;
+    }
+    
+    .book-detail-title {
+        font-size: 1.2rem !important;
+    }
+    
+    .book-detail-author {
+        font-size: 1rem !important;
+    }
+    
+    .book-detail-info,
+    .book-description {
+        font-size: 0.9rem !important;
+    }
+    
+    /* Button sizing */
+    .btn-back {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    /* Navbar title sizing */
+    .top-navbar h4 {
+        font-size: 1.1rem !important;
+    }
+    
+    /* Card padding */
+    .card-body {
+        padding: 0.75rem !important;
+    }
+
+
+/* ===================================
+   RESPONSIVE: VERY SMALL PHONES (up to 375px)
+   =================================== */
+
+@media (max-width: 375px) {
+    /* Even smaller book covers */
+    .book-cover-list {
+        max-width: 80px !important;
+        max-height: 120px !important;
+    }
+    
+    .book-cover-detail {
+        max-width: 140px !important;
+        max-height: 210px !important;
+    }
+    
+    /* Smaller text */
+    .card-title {
+        font-size: 0.95rem !important;
+    }
+    
+    .book-detail-title {
+        font-size: 1.1rem !important;
+    }
+}
+
+/* ===================================
+   RESPONSIVE: LANDSCAPE ORIENTATION
+   =================================== */
+
+@media (max-width: 768px) and (orientation: landscape) {
+    /* Reduce height in landscape mode */
+    .book-cover-detail {
+        max-height: 180px !important;
+    }
+    
+    .book-cover-list {
+        max-height: 130px !important;
+    }
+}
