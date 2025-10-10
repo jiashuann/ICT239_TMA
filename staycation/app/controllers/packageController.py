@@ -56,7 +56,7 @@ def viewBookDetail(book_title):
         return render_template('error.html', message="Book not found."), 404
 
     return render_template(
-        'bookDetail.html',
-        panel="BOOK DETAIL",
+        'bookDetails.html',
+        panel="BOOK DETAILS",
         book=the_book
     )

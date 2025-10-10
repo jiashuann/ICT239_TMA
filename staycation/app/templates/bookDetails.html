@@ -1,35 +1,49 @@
 {% extends "base.html" %}
+
 {% block mainblock %}
 <div class="container my-4">
   <div class="card shadow-sm p-4">
     <div class="row">
-      <!-- 🖼️ Left: Book Image -->
+      <!-- Left: Book Image -->
       <div class="col-md-3 d-flex justify-content-center align-items-start">
-        <img src="{{ book['url'] }}" alt="{{ book['title'] }}" class="img-fluid rounded shadow-sm">
+        <img src="{{ book['url'] }}" alt="{{ book['title'] }}" 
+             class="img-fluid rounded shadow-sm" 
+             style="max-width: 250px; max-height: 400px; object-fit: contain;">
       </div>
 
-      <!-- 📖 Right: Book Info -->
+      <!-- Right: Book Info -->
       <div class="col-md-9">
-        <h2 class="mb-3 text-success">{{ book['title'] }}</h2>
-        <h5 class="text-muted">{{ book['authors']|join(', ') }}</h5>
-        <p><strong>Category:</strong> {{ book['category'] }}</p>
-        <p><strong>Genres:</strong> {{ book['genres']|join(', ') }}</p>
-        <p><strong>Pages:</strong> {{ book['pages'] }}</p>
+        <h2 class="mb-3 font-weight-bold">{{ book['title'] }}</h2>
+        <h5 class="text-muted mb-3">By {{ book['authors']|join(', ') }}</h5>
+        
+        <p class="mb-2">
+          <strong>Category:</strong> {{ book['category'] }}, {{ book['genres']|join(', ') }}
+        </p>
+        
+        <p class="mb-2">
+          <strong>Pages:</strong> {{ book['pages'] }}
+        </p>
+        
+        <p class="mb-3">
+          <strong>Copies:</strong> {{ book['copies'] }} 
+          <strong>Available:</strong> {{ book['available'] }}
+        </p>
       </div>
     </div>
 
-    <hr>
+    <hr class="my-4">
 
-    <!-- 📚 Description -->
+    <!-- Full Description -->
     <div class="mt-3">
       {% for paragraph in book['description'] %}
-        <p>{{ paragraph }}</p>
+        <p class="text-justify">{{ paragraph }}</p>
       {% endfor %}
     </div>
 
-    <!-- 🔙 Back Button -->
+    <!-- Back Button -->
     <div class="d-flex justify-content-end mt-4">
-      <a href="{{ url_for('packageController.book_titles') }}" class="btn btn-success px-4">
+      <a href="{{ url_for('packageController.book_titles') }}" 
+         class="btn btn-success px-4">
         Back to Book Titles
       </a>
     </div>

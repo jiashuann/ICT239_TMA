@@ -47,44 +47,26 @@
               <a href="#" class="text-white">{{ current_user.name }} </a>
             </div>
             {% endif %}
-            <ul class="navbar-nav flex-column mt-4">
-              {% if not current_user.is_authenticated %}
-              <li class="nav-item"><a href="/login" class="nav-link text-white p-3 mb-2 sidebar-link"><i
-                    class="fas fa-home text-light fa-lg mr-3"></i>Login</a></li>
-              <li class="nav-item"><a href="/register" class="nav-link text-white p-3 mb-2 sidebar-link"><i
-                    class="fas fa-user text-light fa-lg mr-3"></i>Register</a></li>
-              {% endif %}
-              <li class="nav-item"><a href="/books" class="nav-link text-white p-3 mb-2 sidebar-link"><i
-                    class="fas fa-address-card text-light fa-lg mr-3"></i>Book Titles</a></li>
-
-              {% if current_user.email == "admin@abc.com" %}
-              <li class="nav-item"><a href="/trend_chart" class="nav-link text-white p-3 mb-2 sidebar-link"><i
-                    class="fas fa-chart-area text-light fa-lg mr-3"></i>Dashboard</a></li>
-              <li class="nav-item"><a href="/upload" class="nav-link text-white p-3 mb-2 sidebar-link"><i
-                    class="fas fa-cloud-upload-alt text-light fa-lg mr-3"></i>Upload</a></li>
-
-              {% else %}
-              {% if current_user.is_authenticated %}
-              <li class="nav-item"><a href="/manageBooking" class="nav-link text-white p-3 mb-2 sidebar-link"><i
-                    class="fas fa-calendar text-light fa-lg mr-3"></i>Manage Booking</a></li>
-              <li class="nav-item"><a href="/changeAvatar" class="nav-link text-white p-3 mb-2 sidebar-link"><i
-                    class="fas fa-smile text-light fa-lg mr-3"></i>Change Avatar</a></li>
-              {% endif %}
-              {% endif %}
-
-            </ul>
+        <ul class="navbar-nav flex-column mt-4">
+        <li class="nav-item">
+            <a href="/BookTitles" class="nav-link text-white p-3 mb-2 sidebar-link">
+            <i class="fas fa-book text-light fa-lg mr-3"></i>Book Titles
+            </a>
+        </li>
+        </ul>
         </div>
           <!-- end of sidebar -->
 
-          <!-- top-nav -->
-          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto bg-info fixed-top py-2 top-navbar">
-            <div class="row align-items-center">
+<!-- top-nav -->
+          <div class="col-xl-10 col-lg-9 col-md-8 ml-auto fixed-top py-3" 
+               style="background-color: #a8d5ba; z-index: 1030;">
+            <div class="row align-items-center px-3">
               <div class="col">
-                <h4 class="text-light text-uppercase mb-0">{{ panel }}</h4>
+                <h4 class="text-dark text-uppercase mb-0 font-weight-bold">{{ panel }}</h4>
               </div>
               {% if current_user.is_authenticated %}
               <div class="col-auto">
-                <a href="#" class="nav-link text-white" data-toggle="modal" data-target="#sign-out">
+                <a href="#" class="text-white" data-toggle="modal" data-target="#sign-out">
                   <i class="fas fa-sign-out-alt fa-lg"></i>
                 </a>
               </div>
