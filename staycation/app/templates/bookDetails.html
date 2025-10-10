@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block mainblock %}
+<div class="container my-4">
+  <div class="card shadow-sm p-4">
+    <div class="row">
+      <!-- 🖼️ Left: Book Image -->
+      <div class="col-md-3 d-flex justify-content-center align-items-start">
+        <img src="{{ book['url'] }}" alt="{{ book['title'] }}" class="img-fluid rounded shadow-sm">
+      </div>
+
+      <!-- 📖 Right: Book Info -->
+      <div class="col-md-9">
+        <h2 class="mb-3 text-success">{{ book['title'] }}</h2>
+        <h5 class="text-muted">{{ book['authors']|join(', ') }}</h5>
+        <p><strong>Category:</strong> {{ book['category'] }}</p>
+        <p><strong>Genres:</strong> {{ book['genres']|join(', ') }}</p>
+        <p><strong>Pages:</strong> {{ book['pages'] }}</p>
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- 📚 Description -->
+    <div class="mt-3">
+      {% for paragraph in book['description'] %}
+        <p>{{ paragraph }}</p>
+      {% endfor %}
+    </div>
+
+    <!-- 🔙 Back Button -->
+    <div class="d-flex justify-content-end mt-4">
+      <a href="{{ url_for('packageController.book_titles') }}" class="btn btn-success px-4">
+        Back to Book Titles
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
