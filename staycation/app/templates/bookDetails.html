@@ -1,49 +1,51 @@
 {% extends "base.html" %}
 
 {% block mainblock %}
-<div class="container my-4">
-  <div class="card shadow-sm p-4">
+<div class="container-fluid px-2 px-md-4 my-3 my-md-4">
+  <div class="card shadow-sm p-2 p-md-4">
     <div class="row">
-      <!-- Left: Book Image -->
-      <div class="col-md-3 d-flex justify-content-center align-items-start">
-        <img src="{{ book['url'] }}" alt="{{ book['title'] }}" 
-             class="img-fluid rounded shadow-sm" 
-             style="max-width: 250px; max-height: 400px; object-fit: contain;">
+      
+      <!-- Book Image - RESPONSIVE sizing -->
+      <div class="col-12 col-sm-5 col-md-4 col-lg-3 mb-3 mb-md-0">
+        <div class="text-center">
+          <img src="{{ book['url'] }}" alt="{{ book['title'] }}" 
+               class="img-fluid rounded shadow-sm book-cover-detail">
+        </div>
       </div>
 
-      <!-- Right: Book Info -->
-      <div class="col-md-9">
-        <h2 class="mb-3 font-weight-bold">{{ book['title'] }}</h2>
-        <h5 class="text-muted mb-3">By {{ book['authors']|join(', ') }}</h5>
+      <!-- Book Information -->
+      <div class="col-12 col-sm-7 col-md-8 col-lg-9">
+        <h2 class="mb-2 mb-md-3 font-weight-bold book-detail-title">{{ book['title'] }}</h2>
+        <h5 class="text-muted mb-2 mb-md-3 book-detail-author">By {{ book['authors']|join(', ') }}</h5>
         
-        <p class="mb-2">
+        <p class="mb-2 book-detail-info">
           <strong>Category:</strong> {{ book['category'] }}, {{ book['genres']|join(', ') }}
         </p>
         
-        <p class="mb-2">
+        <p class="mb-2 book-detail-info">
           <strong>Pages:</strong> {{ book['pages'] }}
         </p>
         
-        <p class="mb-3">
+        <p class="mb-2 mb-md-3 book-detail-info">
           <strong>Copies:</strong> {{ book['copies'] }} 
           <strong>Available:</strong> {{ book['available'] }}
         </p>
       </div>
     </div>
 
-    <hr class="my-4">
+    <hr class="my-2 my-md-4">
 
     <!-- Full Description -->
-    <div class="mt-3">
+    <div class="mt-2 mt-md-3">
       {% for paragraph in book['description'] %}
-        <p class="text-justify">{{ paragraph }}</p>
+        <p class="text-justify book-description">{{ paragraph }}</p>
       {% endfor %}
     </div>
 
     <!-- Back Button -->
-    <div class="d-flex justify-content-end mt-4">
+    <div class="d-flex justify-content-center justify-content-md-end mt-3 mt-md-4">
       <a href="{{ url_for('packageController.book_titles') }}" 
-         class="btn btn-success px-4">
+         class="btn btn-success px-4 btn-back">
         Back to Book Titles
       </a>
     </div>
