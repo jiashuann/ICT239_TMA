@@ -1,11 +1,10 @@
-# Q2b/models/book_doc.py
 from mongoengine import Document, StringField, ListField, IntField
 from app.models.books import all_books
 
 class Book(Document):
     meta = {"collection": "books"}
 
-    # Fields
+    # Fields matching the database schema
     title = StringField(required=True, unique=True, max_length=300)
     category = StringField()
     url = StringField()
@@ -18,7 +17,7 @@ class Book(Document):
 
     @property
     def short_description(self):
-        """First + last paragraph joined."""
+        """Returns first and last paragraph of description."""
         if not self.description:
             return ""
         parts = [p.strip() for p in self.description if p and p.strip()]
@@ -30,9 +29,9 @@ class Book(Document):
 
     @classmethod
     def seed_from_all_books_if_empty(cls):
-        """Populate MongoDB books collection once from all_books."""
+        """Populate MongoDB from all_books if collection is empty."""
         if cls.objects.count() > 0:
-            return  # already seeded
+            return  # Already seeded
         
         docs = []
         for b in all_books:
