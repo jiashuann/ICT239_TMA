@@ -389,7 +389,7 @@ img {
         display: block !important;
     }
     
-    /* Sidebar at TOP, full width, visible by default */
+    /* Sidebar ALWAYS visible at top, full width */
     .sidebar-wrapper {
         position: fixed;
         top: 0;
@@ -397,9 +397,8 @@ img {
         right: 0;
         width: 100%;
         height: auto;
-        transform: translateY(0);
         z-index: 1050;
-        transition: transform 0.3s ease;
+        /* NO transform - sidebar doesn't slide away */
     }
     
     /* Sidebar styling for mobile */
@@ -419,28 +418,21 @@ img {
         padding: 0.25rem;
     }
     
-    /* Navigation menu compact */
-    .sidebar .nav-link {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+    /* Navigation menu - smooth dropdown animation */
+    .navbar-nav {
+        transition: all 0.3s ease;
     }
     
-    /* When collapsed, slide up */
-    .sidebar-wrapper.collapsed {
-    transform: translateX(-100%);
-}
-    
-    /* Main content below sidebar - REDUCED margin */
+    /* Main content below sidebar - FIXED margin */
     .main-content {
         margin-left: 0 !important;
-        margin-top: 180px;
+        margin-top: 150px; /* Adjust based on sidebar height */
         width: 100%;
-        transition: margin-top 0.3s ease;
     }
     
-    /* When sidebar collapsed, content at top */
-    .sidebar-wrapper.collapsed ~ .main-content {
-        margin-top: 0;
+    /* When menu is visible, add extra margin */
+    .main-content.menu-open {
+        margin-top: 220px;
     }
     
     /* Top navbar */
@@ -458,12 +450,13 @@ img {
     .content-wrapper {
         padding: 0.75rem;
     }
+}
     
     /* Filter bar on mobile - stack vertically */
     .filter-bar .row {
         flex-direction: column;
     }
-}
+
 
 /* ===================================
    RESPONSIVE: MOBILE PHONES (up to 576px)

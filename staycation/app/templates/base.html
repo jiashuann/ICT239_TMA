@@ -22,49 +22,60 @@
 
 <body>
 
-  <!-- Sidebar - Always visible, can be toggled on mobile -->
-  <div id="sidebarMenu" class="sidebar-wrapper">
-    <nav class="sidebar">
-      <!-- Hamburger toggle button (inside sidebar on mobile) -->
-      <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-      <div class="sidebar-header">
-        <a href="/" class="navbar-brand text-white d-block text-center py-3 mb-3 bottom-border">SG Library</a>
-      </div>
-      
-      <ul class="navbar-nav flex-column">
-        <li class="nav-item">
-          <a href="/BookTitles" class="nav-link text-white p-3 mb-2 sidebar-link">
-            <i class="fas fa-address-card text-light fa-lg mr-3"></i>Book Titles
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Top navbar -->
-    <div class="top-navbar">
-      <h4 class="text-dark text-uppercase mb-0 font-weight-bold">{{ panel }}</h4>
+<!-- Sidebar - Always visible -->
+<div class="sidebar-wrapper">
+  <nav class="sidebar">
+    
+    <!-- Hamburger dropdown toggle button -->
+    <button class="navbar-toggler" type="button" onclick="toggleMenu()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <!-- Sidebar header with background image -->
+    <div class="sidebar-header">
+      <a href="/" class="navbar-brand text-white d-block text-center py-3 mb-0">SG Library</a>
     </div>
     
-    <!-- Page content -->
-    <div class="content-wrapper">
-      {% block mainblock %}
-      <!-- Content from child templates goes here -->
-      {% endblock %}
-    </div>
-  </div>
+    <!-- Thin line separator -->
+    <hr class="sidebar-divider">
+    
+    <!-- Dropdown menu (hidden by default, shown when hamburger clicked) -->
+    <ul id="sidebarDropdown" class="navbar-nav flex-column mt-2" style="display: none;">
+      <li class="nav-item">
+        <a href="/BookTitles" class="nav-link text-white p-3 sidebar-link">
+          <i class="fas fa-book-open text-light fa-lg mr-3"></i>Book Titles
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
 
-  <!-- Simple toggle script -->
-  <script>
-    function toggleSidebar() {
-      document.getElementById('sidebarMenu').classList.toggle('collapsed');
+<!-- Main Content -->
+<div class="main-content">
+  <!-- Top navbar -->
+  <div class="top-navbar">
+    <h4 class="text-dark text-uppercase mb-0 font-weight-bold">{{ panel }}</h4>
+  </div>
+  
+  <!-- Page content -->
+  <div class="content-wrapper">
+    {% block mainblock %}
+    <!-- Content from child templates goes here -->
+    {% endblock %}
+  </div>
+</div>
+
+<!-- Updated toggle script - shows/hides menu only -->
+<script>
+  function toggleMenu() {
+    var menu = document.getElementById('sidebarDropdown');
+    if (menu.style.display === 'none') {
+      menu.style.display = 'block';
+    } else {
+      menu.style.display = 'none';
     }
-  </script>
+  }
+</script>
 
 </body>
 
