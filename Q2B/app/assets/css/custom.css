@@ -587,3 +587,16 @@ img {
         display: block !important;
     }
 }
+
+/* Grey logout icon - no background */
+.logout-icon {
+  color: #6c757d;
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.logout-icon:hover {
+  color: #495057;
+  text-decoration: none;
+}

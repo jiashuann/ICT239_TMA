@@ -16,7 +16,7 @@
     integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
     crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}?v={{ range(1, 10000) | random }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
   
   <title>SG Library - {{ panel }}</title>
 </head>
@@ -35,54 +35,48 @@
     <!-- Thin line separator -->
     <hr class="sidebar-divider">
     
-    <!-- Thin line separator -->
-<hr class="sidebar-divider">
-
-<!-- USER PROFILE SECTION - ADD THIS ENTIRE BLOCK -->
-{% if current_user.is_authenticated %}
-<div class="user-profile text-center py-3" style="background-color: rgba(0, 0, 0, 0.2);">
-  <div class="mb-2">
-    {% if current_user.avatar %}
-      <img src="{{ url_for('static', filename='img/avatar/' + current_user.avatar) }}" 
-           alt="{{ current_user.name }}" 
-           class="rounded-circle"
-           style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
-    {% else %}
-      <!-- Different default images based on email -->
+    <!-- USER PROFILE SECTION -->
+    {% if current_user.is_authenticated %}
+    <div class="user-profile text-center py-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      <div class="mb-2">
+        {% if current_user.avatar %}
+          <img src="{{ url_for('static', filename='img/avatar/' + current_user.avatar) }}" 
+               alt="{{ current_user.name }}" 
+               class="rounded-circle"
+               style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
+        {% else %}
+          <!-- Different default images based on email -->
+          {% if current_user.email == 'admin@lib.sg' %}
+            <img src="{{ url_for('static', filename='img/admin.jpeg') }}" 
+                 alt="Admin" 
+                 class="rounded-circle"
+                 style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
+          {% elif current_user.email == 'poh@lib.sg' %}
+            <img src="{{ url_for('static', filename='img/avatar/youngman-min.jpg') }}" 
+                 alt="Peter" 
+                 class="rounded-circle"
+                 style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
+          {% else %}
+            <img src="{{ url_for('static', filename='img/avatar/default-min.jpg') }}" 
+                 alt="Default" 
+                 class="rounded-circle"
+                 style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
+          {% endif %}
+        {% endif %}
+      </div>
+      <div class="text-white font-weight-bold" style="font-size: 1rem;">
+        {{ current_user.name }}
+      </div>
       {% if current_user.email == 'admin@lib.sg' %}
-        <img src="{{ url_for('static', filename='img/admin.jpeg') }}" 
-             alt="Admin" 
-             class="rounded-circle"
-             style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
-      {% elif current_user.email == 'poh@lib.sg' %}
-        <img src="{{ url_for('static', filename='img/avatar/youngman-min.jpg') }}" 
-             alt="Peter" 
-             class="rounded-circle"
-             style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
+        <div class="badge badge-warning mt-1">Admin</div>
       {% else %}
-        <img src="{{ url_for('static', filename='img/avatar/default-min.jpg') }}" 
-             alt="Default" 
-             class="rounded-circle"
-             style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
+        <div class="badge badge-info mt-1">Member</div>
       {% endif %}
+    </div>
+    <hr class="sidebar-divider">
     {% endif %}
-  </div>
-  <div class="text-white font-weight-bold" style="font-size: 1rem;">
-    {{ current_user.name }}
-  </div>
-  {% if current_user.email == 'admin@lib.sg' %}
-    <div class="badge badge-warning mt-1">Admin</div>
-  {% else %}
-    <div class="badge badge-info mt-1">Member</div>
-  {% endif %}
-</div>
-<hr class="sidebar-divider">
-{% endif %}
-<!-- END USER PROFILE SECTION -->
-
-<!-- Hamburger button (mobile only) -->
-<button class="navbar-toggler"
-    <!-- Hamburger button (visible only on mobile) -->
+    
+    <!-- Hamburger button (mobile only) -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarDropdown">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -91,7 +85,7 @@
     <ul class="navbar-nav" id="sidebarDropdown">
       <li class="nav-item">
         <a href="/BookTitles" class="nav-link sidebar-link">
-          <i class="fas fa-address-card text-light fa-lg mr-3"></i>Book Titles
+          <i class="fas fa-book-open text-light fa-lg mr-3"></i>Book Titles
         </a>
       </li>
       
@@ -104,14 +98,7 @@
         </li>
         <li class="nav-item">
           <a href="/register" class="nav-link sidebar-link">
-            <i class="fas fa-user text-light fa-lg mr-3"></i>Register
-          </a>
-        </li>
-      {% else %}
-        <!-- Show Logout ONLY if logged in -->
-        <li class="nav-item">
-          <a href="/logout" class="nav-link sidebar-link">
-            <i class="fas fa-sign-out-alt text-light fa-lg mr-3"></i>Logout
+            <i class="fas fa-user-plus text-light fa-lg mr-3"></i>Register
           </a>
         </li>
       {% endif %}
@@ -121,9 +108,16 @@
 
 <!-- Main Content -->
 <div class="main-content">
-  <!-- Top navbar -->
-  <div class="top-navbar">
+  <!-- Top navbar with logout icon -->
+  <div class="top-navbar d-flex justify-content-between align-items-center">
     <h4 class="text-dark text-uppercase mb-0 font-weight-bold">{{ panel }}</h4>
+    
+    <!-- Grey logout icon (only when logged in) -->
+    {% if current_user.is_authenticated %}
+      <a href="/logout" title="Logout" style="color: #6c757d; font-size: 1.5rem; text-decoration: none; line-height: 1;" onmouseover="this.style.color='#495057'" onmouseout="this.style.color='#6c757d'">
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+    {% endif %}
   </div>
   
   <!-- Page content -->
