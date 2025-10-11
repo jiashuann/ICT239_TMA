@@ -16,15 +16,7 @@ loan_bp = Blueprint('loanController', __name__)
 @loan_bp.route('/make_loan/<book_title>')
 @login_required
 def make_loan(book_title):
-    """
-    Create a new loan for the current user.
-    
-    Business Logic:
-    - Generates random borrow date 10-20 days before today
-    - Checks if user already has unreturned loan for this book
-    - Checks if book has available copies
-    - Creates loan and updates book availability
-    """
+
     # Check if user is admin
     if current_user.email == 'admin@lib.sg':
         flash('Admins cannot borrow books. This feature is for library members only.', 'warning')
