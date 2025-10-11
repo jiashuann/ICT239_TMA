@@ -58,7 +58,7 @@ def newBook():
     
     form = AddBookForm()
     
-    # Get number of author fields (default 1, max 20)
+    # Get number of author fields (default 1)
     num_authors = int(request.form.get('num_authors', 1))
     
     if request.method == 'POST':
@@ -75,8 +75,8 @@ def newBook():
             return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)
         
         # Final submit - validate and save
-        if form.validate_on_submit() or request.form.get('title'):  # Basic validation
-            # Collect genres from checkboxes (not from form field)
+        if 'submit' in request.form or request.form.get('title'):
+            # Collect genres from checkboxes
             selected_genres = request.form.getlist('genres')
             
             # Collect authors from form
@@ -100,25 +100,43 @@ def newBook():
                 flash('Title is required!', 'danger')
                 return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)
             
+            if not form.category.data:
+                flash('Category is required!', 'danger')
+                return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)
+            
             if not selected_genres:
                 flash('Please select at least one genre!', 'danger')
                 return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)
             
-            # Create new book
-            new_book = Book(
-                title=form.title.data,
-                category=form.category.data,
-                genres=selected_genres,  # Use checkbox selections
-                url=form.url.data or "",
-                description=description_list,
-                authors=authors,
-                pages=form.pages.data or 0,
-                available=form.copies.data or 0,
-                copies=form.copies.data or 0
-            )
+            # Check if book already exists
+            existing_book = Book.objects(title=form.title.data).first()
+            if existing_book:
+                flash(f'Book "{form.title.data}" already exists in the database!', 'warning')
+                return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)
             
-            new_book.save()
-            flash('Book added successfully!', 'success')
-            return redirect(url_for('packageController.book_titles'))
+            try:
+                # Create new book
+                new_book = Book(
+                    title=form.title.data,
+                    category=form.category.data,
+                    genres=selected_genres,
+                    url=form.url.data or "",
+                    description=description_list,
+                    authors=authors if authors else ["Unknown"],
+                    pages=form.pages.data or 0,
+                    available=form.copies.data or 0,
+                    copies=form.copies.data or 0
+                )
+                
+                new_book.save()
+                flash(f'Success! Book "{form.title.data}" has been added to the library.', 'success')
+                
+                # Clear form and reset to 1 author
+                form = AddBookForm()
+                num_authors = 1
+                
+            except Exception as e:
+                flash(f'Error adding book: {str(e)}', 'danger')
+                return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)
     
     return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)

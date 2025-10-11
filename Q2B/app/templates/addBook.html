@@ -18,7 +18,8 @@
             'Emotion', 'Fantasy', 'Fiction', 'Friendship', 'Graphic Novels',
             'Grief', 'Historical Fiction', 'Indigenous', 'Leadership', 'Magic',
             'Mental Health', 'Nonfiction', 'Personal Development', 'Picture Books',
-            'Poetry', 'Productivity', 'Psychology', 'Romance', 'School', 'Self Help'
+            'Poetry', 'Productivity', 'Psychology', 'Romance', 'School', 'Self Help', 'Memoir', 'Contemporary', 
+            'Inspirational', 'Classics', 'Biography Memoir', 'BookClub', 'Thriller', 'Biography'
         ] %}
         
         {% for genre in genre_choices %}
@@ -104,10 +105,12 @@
         {{ form.copies(class="form-control", type="number", placeholder="e.g., 2") }}
       </div>
       
-      <!-- Submit Button -->
-      <div class="text-right mt-4">
-        <button type="submit" class="btn btn-success px-5">Submit</button>
-      </div>
+    <!-- Final Submit Button -->
+    <div class="text-right mt-4">
+    <button type="submit" name="submit" class="btn btn-success btn-lg px-5">
+        <i class="fas fa-check mr-2"></i>Submit Book
+    </button>
+    </div>
     </form>
   </div>
 </div>
