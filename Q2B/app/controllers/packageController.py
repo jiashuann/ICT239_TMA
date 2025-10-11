@@ -58,40 +58,67 @@ def newBook():
     
     form = AddBookForm()
     
-    if request.method == 'POST' and form.validate():
-        # Collect authors (non-empty only)
-        authors = []
-        illustrators = []
-        
-        for i in range(1, 6):
-            author = form[f'author{i}'].data
-            illustrator = form[f'illustrator{i}'].data
-            
-            if author:
-                if illustrator:
-                    authors.append(f"{author} (Illustrator)")
-                else:
-                    authors.append(author)
-        
-        # Split description by newlines to create paragraphs
-        description_text = form.description.data or ""
-        description_list = [p.strip() for p in description_text.split('\n\n') if p.strip()]
-        
-        # Create new book
-        new_book = Book(
-            title=form.title.data,
-            category=form.category.data,
-            genres=form.genres.data,
-            url=form.url.data or "",
-            description=description_list,
-            authors=authors,
-            pages=form.pages.data or 0,
-            available=form.copies.data or 0,
-            copies=form.copies.data or 0
-        )
-        
-        new_book.save()
-        flash('Book added successfully!', 'success')
-        return redirect(url_for('packageController.book_titles'))
+    # Get number of author fields (default 1, max 20)
+    num_authors = int(request.form.get('num_authors', 1))
     
-    return render_template('addBook.html', panel="ADD A BOOK", form=form)
+    if request.method == 'POST':
+        # Check if user clicked "Add Another Author"
+        if 'add_author' in request.form:
+            num_authors += 1
+            form.process(formdata=request.form)
+            return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)
+        
+        # Check if user clicked "Remove Last Author"
+        if 'remove_author' in request.form and num_authors > 1:
+            num_authors -= 1
+            form.process(formdata=request.form)
+            return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)
+        
+        # Final submit - validate and save
+        if form.validate_on_submit() or request.form.get('title'):  # Basic validation
+            # Collect genres from checkboxes (not from form field)
+            selected_genres = request.form.getlist('genres')
+            
+            # Collect authors from form
+            authors = []
+            for i in range(1, num_authors + 1):
+                author_name = request.form.get(f'author_{i}', '').strip()
+                is_illustrator = request.form.get(f'illustrator_{i}')
+                
+                if author_name:
+                    if is_illustrator:
+                        authors.append(f"{author_name} (Illustrator)")
+                    else:
+                        authors.append(author_name)
+            
+            # Split description by double newlines to create paragraphs
+            description_text = form.description.data or ""
+            description_list = [p.strip() for p in description_text.split('\n\n') if p.strip()]
+            
+            # Validate required fields
+            if not form.title.data:
+                flash('Title is required!', 'danger')
+                return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)
+            
+            if not selected_genres:
+                flash('Please select at least one genre!', 'danger')
+                return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)
+            
+            # Create new book
+            new_book = Book(
+                title=form.title.data,
+                category=form.category.data,
+                genres=selected_genres,  # Use checkbox selections
+                url=form.url.data or "",
+                description=description_list,
+                authors=authors,
+                pages=form.pages.data or 0,
+                available=form.copies.data or 0,
+                copies=form.copies.data or 0
+            )
+            
+            new_book.save()
+            flash('Book added successfully!', 'success')
+            return redirect(url_for('packageController.book_titles'))
+    
+    return render_template('addBook.html', panel="ADD A BOOK", form=form, num_authors=num_authors)

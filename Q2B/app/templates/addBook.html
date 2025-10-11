@@ -6,14 +6,43 @@
     <form method="POST" action="/newBook">
       {{ form.hidden_tag() }}
       
-      <!-- Genres (Multi-select) -->
-      <div class="form-group">
-        <label for="genres"><strong>Choose multiple Genres:</strong></label>
-        {{ form.genres(class="form-control", size="5", style="height: 150px;") }}
-        {% for error in form.genres.errors %}
-          <small class="text-danger">{{ error }}</small>
+    <!-- Genres (Checkbox List) -->
+    <div class="form-group">
+    <label><strong>Choose multiple Genres:</strong></label>
+    <small class="form-text text-muted mb-2">Click to select/deselect genres</small>
+    
+    <div class="border p-3" style="max-height: 300px; overflow-y: auto; background-color: #f8f9fa;">
+        <div class="row">
+        {% set genre_choices = [
+            'Animals', 'Business', 'Comics', 'Communication', 'Dark Academia',
+            'Emotion', 'Fantasy', 'Fiction', 'Friendship', 'Graphic Novels',
+            'Grief', 'Historical Fiction', 'Indigenous', 'Leadership', 'Magic',
+            'Mental Health', 'Nonfiction', 'Personal Development', 'Picture Books',
+            'Poetry', 'Productivity', 'Psychology', 'Romance', 'School', 'Self Help'
+        ] %}
+        
+        {% for genre in genre_choices %}
+        <div class="col-md-6 col-lg-4">
+            <div class="form-check mb-2">
+            <input type="checkbox" 
+                    class="form-check-input" 
+                    id="genre_{{ loop.index }}" 
+                    name="genres" 
+                    value="{{ genre }}"
+                    {% if genre in request.form.getlist('genres') %}checked{% endif %}>
+            <label class="form-check-label" for="genre_{{ loop.index }}">
+                {{ genre }}
+            </label>
+            </div>
+        </div>
         {% endfor %}
-      </div>
+        </div>
+    </div>
+    
+    {% for error in form.genres.errors %}
+        <small class="text-danger">{{ error }}</small>
+    {% endfor %}
+    </div>
       
       <!-- Title -->
       <div class="form-group">
