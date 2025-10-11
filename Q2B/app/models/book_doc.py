@@ -48,3 +48,84 @@ class Book(Document):
             ))
         if docs:
             cls.objects.insert(docs, load_bulk=False)
+
+    # ============================================================
+    # NEW METHODS FOR BORROWING AND RETURNING BOOKS
+    # ============================================================
+    
+    def borrow_book(self):
+        """
+        Borrow a book (decrease available count by 1).
+        
+        Returns:
+            tuple: (success: bool, message: str)
+        
+        Sanity checks:
+        - Book must have at least 1 available copy
+        - Available count cannot go below 0
+        """
+        if self.available <= 0:
+            return False, f"Cannot borrow '{self.title}'. No copies available."
+        
+        if self.available > self.copies:
+            return False, f"Data error: Available copies ({self.available}) exceeds total copies ({self.copies})."
+        
+        # Decrease available count
+        self.available -= 1
+        self.save()
+        
+        return True, f"Successfully borrowed '{self.title}'. {self.available} copies remaining."
+    
+    def return_book(self):
+        """
+        Return a borrowed book (increase available count by 1).
+        
+        Returns:
+            tuple: (success: bool, message: str)
+        
+        Sanity checks:
+        - Available count cannot exceed total copies
+        - Book must have been previously borrowed (available < copies)
+        """
+        if self.available >= self.copies:
+            return False, f"Cannot return '{self.title}'. All {self.copies} copies are already available (none borrowed)."
+        
+        if self.available < 0:
+            return False, f"Data error: Available count ({self.available}) is negative."
+        
+        # Increase available count
+        self.available += 1
+        self.save()
+        
+        return True, f"Successfully returned '{self.title}'. {self.available} of {self.copies} copies now available."
+    
+    @staticmethod
+    def get_book_by_title(title):
+        """
+        Retrieve a book by its title.
+        
+        Args:
+            title (str): The book title
+        
+        Returns:
+            Book object or None
+        """
+        return Book.objects(title=title).first()
+    
+    def is_available(self):
+        """
+        Check if book has available copies.
+        
+        Returns:
+            bool: True if available > 0, False otherwise
+        """
+        return self.available > 0
+    
+    def get_borrowed_count(self):
+        """
+        Calculate how many copies are currently borrowed.
+        
+        Returns:
+            int: Number of borrowed copies
+        """
+        return self.copies - self.available
