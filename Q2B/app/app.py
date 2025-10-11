@@ -5,6 +5,8 @@ print("="*60)
 from flask_login import login_required, current_user
 from flask import Blueprint, render_template, request, jsonify, url_for, redirect
 from app import app, db
+from app.controllers.loanController import (loan_bp)
+app.register_blueprint(loan_bp)
 
 # Debug: Print which database we're connected to
 print("="*60)

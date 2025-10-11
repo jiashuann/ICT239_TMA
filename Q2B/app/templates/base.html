@@ -88,7 +88,14 @@
           <i class="fas fa-book-open text-light fa-lg mr-3"></i>Book Titles
         </a>
       </li>
-    
+    <!-- MY LOANS - Show only for authenticated non-admin users -->
+      {% if current_user.is_authenticated and current_user.email != 'admin@lib.sg' %}
+          <li class="nav-item">
+        <a href="{{ url_for('loanController.my_loans') }}" class="nav-link sidebar-link">
+       <i class="fas fa-clipboard text-light fa-lg mr-3"></i>Loans
+         </a>
+        </li>
+{% endif %}
     <!-- NEW BOOK - Admin Only -->
     {% if current_user.is_authenticated and current_user.email == 'admin@lib.sg' %}
       <li class="nav-item">
@@ -107,7 +114,7 @@
         </li>
         <li class="nav-item">
           <a href="/register" class="nav-link sidebar-link">
-            <i class="fas fa-user-plus text-light fa-lg mr-3"></i>Register
+            <i class="fas fa-user text-light fa-lg mr-3"></i>Register
           </a>
         </li>
       {% endif %}
