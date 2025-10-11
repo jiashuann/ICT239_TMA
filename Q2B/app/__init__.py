@@ -15,7 +15,7 @@ def create_app():
     
     # MongoDB Configuration
     app.config['MONGODB_SETTINGS'] = {
-        'db':'staycation',
+        'db':'qns2b_database',
         'host':'localhost'
     }
     

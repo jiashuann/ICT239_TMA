@@ -3,6 +3,7 @@
 from flask_login import login_required, current_user
 from flask import Blueprint, render_template, request, jsonify, url_for, redirect
 from app import app, db #, login_manager
+print(f"🔍 Connected to database: {app.config['MONGODB_SETTINGS']['db']}")
 
 from werkzeug.security import generate_password_hash
 
