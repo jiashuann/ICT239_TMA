@@ -315,6 +315,11 @@ img {
         display: none !important;
     }
     
+    /* Show sidebar menu on desktop */
+    #sidebarDropdown {
+        display: block !important;
+    }
+    
     /* Sidebar on left side */
     .sidebar-wrapper {
         position: fixed;
@@ -389,6 +394,16 @@ img {
         display: block !important;
     }
     
+    /* Hide menu by default on mobile */
+    #sidebarDropdown {
+        display: none;
+    }
+    
+    /* Show menu when toggled */
+    #sidebarDropdown.show {
+        display: block !important;
+    }
+    
     /* Sidebar ALWAYS visible at top, full width */
     .sidebar-wrapper {
         position: fixed;
@@ -398,7 +413,6 @@ img {
         width: 100%;
         height: auto;
         z-index: 1050;
-        /* NO transform - sidebar doesn't slide away */
     }
     
     /* Sidebar styling for mobile */
@@ -426,7 +440,7 @@ img {
     /* Main content below sidebar - FIXED margin */
     .main-content {
         margin-left: 0 !important;
-        margin-top: 150px; /* Adjust based on sidebar height */
+        margin-top: 150px;
         width: 100%;
     }
     
@@ -450,30 +464,22 @@ img {
     .content-wrapper {
         padding: 0.75rem;
     }
-}
     
     /* Filter bar on mobile - stack vertically */
     .filter-bar .row {
         flex-direction: column;
     }
-
+}
 
 /* ===================================
    RESPONSIVE: MOBILE PHONES (up to 576px)
    =================================== */
 
 @media (max-width: 576px) {
-  .book-cover-list {
-      max-width: 140px !important;
-      max-height: 200px !important;
-  }
-}
-@media (max-width: 375px) {
-  .book-cover-list {
-      max-width: 120px !important;
-      max-height: 180px !important;
-  }
-}
+    .book-cover-list {
+        max-width: 140px !important;
+        max-height: 200px !important;
+    }
     
     /* Smaller text */
     .card-title {
@@ -517,7 +523,7 @@ img {
     .card-body {
         padding: 0.75rem !important;
     }
-
+}
 
 /* ===================================
    RESPONSIVE: VERY SMALL PHONES (up to 375px)
@@ -526,8 +532,8 @@ img {
 @media (max-width: 375px) {
     /* Even smaller book covers */
     .book-cover-list {
-        max-width: 80px !important;
-        max-height: 120px !important;
+        max-width: 120px !important;
+        max-height: 180px !important;
     }
     
     .book-cover-detail {
@@ -557,5 +563,27 @@ img {
     
     .book-cover-list {
         max-height: 130px !important;
+    }
+}
+
+/* ===================================
+   FORCE MENU TO SHOW - OVERRIDE ALL
+   =================================== */
+
+/* DESKTOP: Always show menu */
+@media (min-width: 769px) {
+    #sidebarDropdown {
+        display: block !important;
+    }
+}
+
+/* MOBILE: Hide by default, show when toggled */
+@media (max-width: 768px) {
+    #sidebarDropdown {
+        display: none !important;
+    }
+    
+    #sidebarDropdown.show {
+        display: block !important;
     }
 }

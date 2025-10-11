@@ -34,7 +34,7 @@ def login():
             if check_user:
                 if check_password_hash(check_user['password'], form.password.data):
                     login_user(check_user)
-                    return redirect(url_for('packageController.packages'))      
+                    return redirect(url_for('packageController.book_titles'))      
                 else:
                     form.password.errors.append("User Password Not Correct")
             else:
@@ -45,7 +45,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('packageController.packages'))
+    return redirect(url_for('packageController.book_titles'))
 
 # Load the current user if any
 @login_manager.user_loader
