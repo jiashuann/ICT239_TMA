@@ -71,10 +71,16 @@
           
           <p class="card-text mb-3">{{ book.short_description }}</p>
           
-          <!-- More Details Button -->
+          <!-- Buttons - Make a Loan OR More Details -->
           <div class="d-flex justify-content-end">
-            <a href="{{ url_for('packageController.viewBookDetail', book_title=book.title) }}"
-               class="btn btn-success">
+            {% if book.available > 0 %}
+                <a href="{{ url_for('bookingController.view', hotel_name=book.title) }}"
+                    class="btn btn-success mr-2">
+                  Make a Loan
+                </a>
+              {% endif %}
+              <a href="{{ url_for('packageController.viewBookDetail', book_title=book.title) }}"
+                 class="btn btn-success">
               More details
             </a>
           </div>
