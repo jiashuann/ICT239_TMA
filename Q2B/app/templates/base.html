@@ -85,14 +85,14 @@
     <ul class="navbar-nav" id="sidebarDropdown">
       <li class="nav-item">
         <a href="/BookTitles" class="nav-link sidebar-link">
-          <i class="fas fa-book-open text-light fa-lg mr-3"></i>Book Titles
+          <i class="fas fa-address-card text-light fa-lg mr-3"></i>Book Titles
         </a>
       </li>
     <!-- MY LOANS - Show only for authenticated non-admin users -->
       {% if current_user.is_authenticated and current_user.email != 'admin@lib.sg' %}
           <li class="nav-item">
         <a href="{{ url_for('loanController.my_loans') }}" class="nav-link sidebar-link">
-       <i class="fas fa-clipboard text-light fa-lg mr-3"></i>Loans
+       <i class="fas fa-clipboard text-light fa-lg mr-3"></i> Loans
          </a>
         </li>
 {% endif %}

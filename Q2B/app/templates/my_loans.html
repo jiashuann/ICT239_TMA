@@ -24,7 +24,7 @@
     {% endif %}
   {% endwith %}
 
-  <h3 class="mb-4">My Loans</h3>
+  <h3 class="mb-4">Current Loans</h3>
 
   {% if loans|length == 0 %}
     <div class="alert alert-info">
@@ -41,7 +41,6 @@
             <th>Borrow Date</th>
             <th>Return Date</th>
             <th>Renewals</th>
-            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -75,16 +74,6 @@
             <!-- Renewals -->
             <td>{{ loan.renew_count }}</td>
             
-            <!-- Status -->
-            <td>
-              {% if loan.is_returned() %}
-                <span class="badge badge-success">Returned</span>
-              {% elif loan.is_overdue() %}
-                <span class="badge badge-danger">Overdue</span>
-              {% else %}
-                <span class="badge badge-info">Active</span>
-              {% endif %}
-            </td>
             
             <!-- Actions -->
             <td>
