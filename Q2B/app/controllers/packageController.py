@@ -1,7 +1,7 @@
 from flask_login import login_user, login_required, logout_user, current_user
-from flask import Blueprint, request, redirect, render_template, url_for
+from flask import Blueprint, request, redirect, render_template, url_for, flash
 
-from app.models.forms import BookForm
+from app.models.forms import BookForm, AddBookForm
 from app.models.books import all_books
 from app.models.users import User
 from app.models.package import Package
@@ -47,3 +47,51 @@ def viewBookDetail(book_title):
         return render_template('error.html', message="Book not found."), 404
 
     return render_template('bookDetails.html', panel="BOOK DETAILS", book=the_book)
+
+@package.route('/newBook', methods=['GET', 'POST'])
+@login_required
+def newBook():
+    # Check if user is admin
+    if current_user.email != 'admin@lib.sg':
+        flash('Access denied. Admin only.', 'danger')
+        return redirect(url_for('packageController.book_titles'))
+    
+    form = AddBookForm()
+    
+    if request.method == 'POST' and form.validate():
+        # Collect authors (non-empty only)
+        authors = []
+        illustrators = []
+        
+        for i in range(1, 6):
+            author = form[f'author{i}'].data
+            illustrator = form[f'illustrator{i}'].data
+            
+            if author:
+                if illustrator:
+                    authors.append(f"{author} (Illustrator)")
+                else:
+                    authors.append(author)
+        
+        # Split description by newlines to create paragraphs
+        description_text = form.description.data or ""
+        description_list = [p.strip() for p in description_text.split('\n\n') if p.strip()]
+        
+        # Create new book
+        new_book = Book(
+            title=form.title.data,
+            category=form.category.data,
+            genres=form.genres.data,
+            url=form.url.data or "",
+            description=description_list,
+            authors=authors,
+            pages=form.pages.data or 0,
+            available=form.copies.data or 0,
+            copies=form.copies.data or 0
+        )
+        
+        new_book.save()
+        flash('Book added successfully!', 'success')
+        return redirect(url_for('packageController.book_titles'))
+    
+    return render_template('addBook.html', panel="ADD A BOOK", form=form)

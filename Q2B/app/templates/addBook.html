@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block mainblock %}
+<div class="container-fluid px-3">
+  <div class="card shadow-sm p-4">
+    <form method="POST" action="/newBook">
+      {{ form.hidden_tag() }}
+      
+      <!-- Genres (Multi-select) -->
+      <div class="form-group">
+        <label for="genres"><strong>Choose multiple Genres:</strong></label>
+        {{ form.genres(class="form-control", size="5", style="height: 150px;") }}
+        {% for error in form.genres.errors %}
+          <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+      </div>
+      
+      <!-- Title -->
+      <div class="form-group">
+        <label for="title"><strong>Title:</strong></label>
+        {{ form.title(class="form-control", placeholder="Enter book title") }}
+        {% for error in form.title.errors %}
+          <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+      </div>
+      
+      <!-- Category -->
+      <div class="form-group">
+        <label for="category"><strong>Choose a category:</strong></label>
+        {{ form.category(class="form-control") }}
+        {% for error in form.category.errors %}
+          <small class="text-danger">{{ error }}</small>
+        {% endfor %}
+      </div>
+      
+      <!-- URL for Cover -->
+      <div class="form-group">
+        <label for="url"><strong>URL for Cover:</strong></label>
+        {{ form.url(class="form-control", placeholder="https://example.com/cover.jpg") }}
+      </div>
+      
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description"><strong>Description:</strong></label>
+        {{ form.description(class="form-control", rows="6", placeholder="Enter book description (separate paragraphs with blank lines)") }}
+      </div>
+      
+      <!-- Authors with Illustrator checkboxes -->
+      {% for i in range(1, 6) %}
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label"><strong>Author {{ i }}:</strong></label>
+        <div class="col-sm-7">
+          {{ form['author' ~ i](class="form-control", placeholder="Author name") }}
+        </div>
+        <div class="col-sm-3 d-flex align-items-center">
+          {{ form['illustrator' ~ i](class="form-check-input") }}
+          <label class="form-check-label ml-2">Illustrator</label>
+        </div>
+      </div>
+      {% endfor %}
+      
+      <!-- Number of Pages -->
+      <div class="form-group">
+        <label for="pages"><strong>Number of pages:</strong></label>
+        {{ form.pages(class="form-control", type="number", placeholder="e.g., 300") }}
+      </div>
+      
+      <!-- Number of Copies -->
+      <div class="form-group">
+        <label for="copies"><strong>Number of copies:</strong></label>
+        {{ form.copies(class="form-control", type="number", placeholder="e.g., 2") }}
+      </div>
+      
+      <!-- Submit Button -->
+      <div class="text-right mt-4">
+        <button type="submit" class="btn btn-success px-5">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
