@@ -69,7 +69,7 @@ def my_loans():
     # Get all loans for current user
     all_loans = Loan.get_user_loans(current_user._get_current_object(), include_returned=True)
     
-    return render_template('my_loans.html', panel="My Loans", loans=all_loans)
+    return render_template('my_loans.html', panel="Current Loans", loans=all_loans)
 
 
 # ============================================================

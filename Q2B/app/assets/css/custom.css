@@ -628,3 +628,9 @@ img {
     border-color: #ffeeba;
     color: #856404;
 }
+
+/* Change table header background color */
+.table thead th {
+    background-color: #e9ecef !important;
+    color: #2d3436 !important;
+}
