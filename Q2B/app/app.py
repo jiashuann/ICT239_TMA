@@ -1,43 +1,52 @@
+print("="*60)
+print("THIS IS Q2B - PART B")
+print("="*60)
+
 from flask_login import login_required, current_user
 from flask import Blueprint, render_template, request, jsonify, url_for, redirect
-from app import app, db #, login_manager
+from app import app, db
+
+# Debug: Print which database we're connected to
+print("="*60)
+print(f"🚀 Running: Q2b - Part (b)")
+print(f"🗄️  Connected to database: {app.config['MONGODB_SETTINGS']['db']}")
+print(f"🌐 URL: http://127.0.0.1:5000")
+print("="*60)
 
 from werkzeug.security import generate_password_hash
 
-# Register Blueprint so we can factor routes
-# from bmi import bmi, get_dict_from_csv, insert_reading_data_into_database
-
+# Register Blueprint
 from app.controllers.dashboard import dashboard
 from app.controllers.auth import auth
 from app.controllers.bookController import booking
-from app.controllers.packageController import package
+from app.controllers.packageController import package 
 
 from app.models.package import Package
 from app.models.book import Booking
 from app.models.users import User
 from app.models.forms import BookForm
 
-#for uploading file
+# For uploading file
 import csv
 import io
 import json
 import datetime as dt
 import os
 
-# register blueprint from respective module
+# Register blueprints
 app.register_blueprint(dashboard)
 app.register_blueprint(auth)
 app.register_blueprint(booking)
 app.register_blueprint(package)
 
-@app.template_filter('formatdate') # use this name
+@app.template_filter('formatdate')
 def format_date(value, format="%#d/%m/%Y"):
     """Format a date time to (Default): dd/mm/YYYY"""
     if value is None:
         return ""
     return value.strftime(format)
 
-@app.template_filter('formatmoney') # use this name
+@app.template_filter('formatmoney')
 def format_money(value, ndigits=2):
     """Format money with 2 decimal digits"""
     if value is None:
@@ -88,9 +97,7 @@ def upload():
 @app.route("/changeAvatar")
 def changeAvatar():
     basedir = os.path.abspath(os.path.dirname(__file__))
-    # Specify the relative path to the subfolder
     subfolder_path = os.path.join('assets', 'img/avatar')
-    # Join the base directory with the subfolder path
     subfolder_abs_path = os.path.join(basedir, subfolder_path)
     
     files = []
@@ -98,21 +105,15 @@ def changeAvatar():
         path = os.path.join(subfolder_abs_path, filename)
         if os.path.isfile(path):
             files.append(filename)
-            # url_for('static') /static/default.jpg etc
     return render_template("changeAvatar.html", filenames=files, panel="Change Avatar") 
 
 @app.route("/chooseAvatar", methods=['POST'])
 def chooseAvatar():
-    # get the filename
     chosenPath = request.json['path']
     print('chosen path: ', chosenPath)
   
     basedir = os.path.abspath(os.path.dirname(__file__))
-
-    # Specify the relative path to the subfolder
     subfolder_path = os.path.join('assets', 'img/avatar')
-
-    # Join the base directory with the subfolder path
     subfolder_abs_path = os.path.join(basedir, subfolder_path)
     
     filename = chosenPath.split('/')[-1]
@@ -121,5 +122,4 @@ def chooseAvatar():
     return jsonify(path=chosenPath)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5000)
-
+    app.run(debug=True, host='127.0.0.1', port=5000)  

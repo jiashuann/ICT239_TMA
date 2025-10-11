@@ -7,7 +7,7 @@ import pymongo
 def create_app():
     app = Flask(__name__)
     app.config['MONGODB_SETTINGS'] = {
-        'db':'staycation',
+        'db':'q2a_library',
         'host':'localhost'
     }
     app.static_folder = 'assets'

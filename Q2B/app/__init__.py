@@ -1,8 +1,7 @@
 from flask import Flask
-from flask_mongoengine import MongoEngine, Document
+from flask_mongoengine import MongoEngine
 from flask_login import LoginManager
 import os
-import pymongo
 
 def create_app():
     # Get the absolute path to the app directory
@@ -15,7 +14,7 @@ def create_app():
     
     # MongoDB Configuration
     app.config['MONGODB_SETTINGS'] = {
-        'db':'qns2b_database',
+        'db':'q2b_library',  # ← Q2B database
         'host':'localhost'
     }
     
