@@ -35,6 +35,53 @@
     <!-- Thin line separator -->
     <hr class="sidebar-divider">
     
+    <!-- Thin line separator -->
+<hr class="sidebar-divider">
+
+<!-- USER PROFILE SECTION - ADD THIS ENTIRE BLOCK -->
+{% if current_user.is_authenticated %}
+<div class="user-profile text-center py-3" style="background-color: rgba(0, 0, 0, 0.2);">
+  <div class="mb-2">
+    {% if current_user.avatar %}
+      <img src="{{ url_for('static', filename='img/avatar/' + current_user.avatar) }}" 
+           alt="{{ current_user.name }}" 
+           class="rounded-circle"
+           style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
+    {% else %}
+      <!-- Different default images based on email -->
+      {% if current_user.email == 'admin@lib.sg' %}
+        <img src="{{ url_for('static', filename='img/admin.jpeg') }}" 
+             alt="Admin" 
+             class="rounded-circle"
+             style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
+      {% elif current_user.email == 'poh@lib.sg' %}
+        <img src="{{ url_for('static', filename='img/avatar/youngman-min.jpg') }}" 
+             alt="Peter" 
+             class="rounded-circle"
+             style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
+      {% else %}
+        <img src="{{ url_for('static', filename='img/avatar/default-min.jpg') }}" 
+             alt="Default" 
+             class="rounded-circle"
+             style="width: 60px; height: 60px; object-fit: cover; border: 3px solid white;">
+      {% endif %}
+    {% endif %}
+  </div>
+  <div class="text-white font-weight-bold" style="font-size: 1rem;">
+    {{ current_user.name }}
+  </div>
+  {% if current_user.email == 'admin@lib.sg' %}
+    <div class="badge badge-warning mt-1">Admin</div>
+  {% else %}
+    <div class="badge badge-info mt-1">Member</div>
+  {% endif %}
+</div>
+<hr class="sidebar-divider">
+{% endif %}
+<!-- END USER PROFILE SECTION -->
+
+<!-- Hamburger button (mobile only) -->
+<button class="navbar-toggler"
     <!-- Hamburger button (visible only on mobile) -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarDropdown">
       <span class="navbar-toggler-icon"></span>
