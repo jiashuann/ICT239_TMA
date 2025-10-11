@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, DateTimeField, FloatField, TextAreaField, IntegerField, SelectField, SelectMultipleField
+from wtforms import StringField, PasswordField, DateTimeField, FloatField, TextAreaField, IntegerField, SelectField, SelectMultipleField, BooleanField
 from wtforms.validators import Email, Length, InputRequired, input_required, Optional
 
 class RegForm(FlaskForm):
@@ -49,15 +49,18 @@ class AddBookForm(FlaskForm):
                                  ])
     url = StringField('URL for Cover', validators=[Optional()])
     description = TextAreaField('Description', validators=[Optional()])
+    
+    # Authors and illustrator checkboxes - MAKE SURE THESE ARE HERE
     author1 = StringField('Author 1', validators=[Optional()])
-    illustrator1 = StringField('Illustrator 1', validators=[Optional()])
+    illustrator1 = BooleanField('Illustrator')
     author2 = StringField('Author 2', validators=[Optional()])
-    illustrator2 = StringField('Illustrator 2', validators=[Optional()])
+    illustrator2 = BooleanField('Illustrator')
     author3 = StringField('Author 3', validators=[Optional()])
-    illustrator3 = StringField('Illustrator 3', validators=[Optional()])
+    illustrator3 = BooleanField('Illustrator')
     author4 = StringField('Author 4', validators=[Optional()])
-    illustrator4 = StringField('Illustrator 4', validators=[Optional()])
+    illustrator4 = BooleanField('Illustrator')
     author5 = StringField('Author 5', validators=[Optional()])
-    illustrator5 = StringField('Illustrator 5', validators=[Optional()])
+    illustrator5 = BooleanField('Illustrator')
+    
     pages = IntegerField('Number of pages', validators=[Optional()])
     copies = IntegerField('Number of copies', validators=[Optional()])
