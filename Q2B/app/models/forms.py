@@ -9,7 +9,6 @@ class RegForm(FlaskForm):
 
 class BookForm(FlaskForm):
     check_in_date = DateTimeField('check_in_date',  validators=[InputRequired()])
-    # total_cost = FloatField('total_cost', validators=[InputRequired(), Length(min=5, max=20)])
 
 # NEW: Add Book Form
 class AddBookForm(FlaskForm):
@@ -22,9 +21,14 @@ class AddBookForm(FlaskForm):
     genres = SelectMultipleField('Choose multiple Genres',
                                  choices=[
                                      ('Animals', 'Animals'),
+                                     ('Biography', 'Biography'),
+                                     ('Biography Memoir', 'Biography Memoir'),
+                                     ('BookClub', 'BookClub'),
                                      ('Business', 'Business'),
+                                     ('Classics', 'Classics'),
                                      ('Comics', 'Comics'),
                                      ('Communication', 'Communication'),
+                                     ('Contemporary', 'Contemporary'),
                                      ('Dark Academia', 'Dark Academia'),
                                      ('Emotion', 'Emotion'),
                                      ('Fantasy', 'Fantasy'),
@@ -34,8 +38,10 @@ class AddBookForm(FlaskForm):
                                      ('Grief', 'Grief'),
                                      ('Historical Fiction', 'Historical Fiction'),
                                      ('Indigenous', 'Indigenous'),
+                                     ('Inspirational', 'Inspirational'),
                                      ('Leadership', 'Leadership'),
                                      ('Magic', 'Magic'),
+                                     ('Memoir', 'Memoir'),
                                      ('Mental Health', 'Mental Health'),
                                      ('Nonfiction', 'Nonfiction'),
                                      ('Personal Development', 'Personal Development'),
@@ -45,12 +51,13 @@ class AddBookForm(FlaskForm):
                                      ('Psychology', 'Psychology'),
                                      ('Romance', 'Romance'),
                                      ('School', 'School'),
-                                     ('Self Help', 'Self Help')
+                                     ('Self Help', 'Self Help'),
+                                     ('Thriller', 'Thriller')
                                  ])
     url = StringField('URL for Cover', validators=[Optional()])
     description = TextAreaField('Description', validators=[Optional()])
     
-    # Authors and illustrator checkboxes - MAKE SURE THESE ARE HERE
+    # Authors and illustrator checkboxes
     author1 = StringField('Author 1', validators=[Optional()])
     illustrator1 = BooleanField('Illustrator')
     author2 = StringField('Author 2', validators=[Optional()])

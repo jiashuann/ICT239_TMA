@@ -1,5 +1,3 @@
-# https://medium.com/@dmitryrastorguev/basic-user-authentication-login-for-flask-using-mongoengine-and-wtforms-922e64ef87fe
-
 from flask_login import login_required, current_user
 from flask import Blueprint, render_template, request, jsonify, url_for, redirect
 from app import app, db #, login_manager
